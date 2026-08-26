@@ -3,7 +3,7 @@ import { PageManager } from '../page-objects/page-manager'
 import {faker} from '@faker-js/faker'
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('https://playground.bondaracademy.com/')
+    await page.goto('/')
 })
 
 test('Navigate to form layouts page', async ({ page }) => {
@@ -14,13 +14,13 @@ test('Navigate to form layouts page', async ({ page }) => {
     await pom.navigateTo.smartTablePage()
 })
 
-test('Parametrized page object methods', async({page}) => {
+test.only('Parametrized page object methods', async({page}) => {
     const pom = new PageManager(page)
     const randomFullName = faker.person.fullName()
     const randomEmail = faker.internet.email({provider: 'test.com'})
 
     await pom.navigateTo.formLayoutsPage()
-    await pom.formLayoutsPage.submitUsingTheGridForm('artem@test.com', 'Welcome', 'Option 2')
+    await pom.formLayoutsPage.submitUsingTheGridForm(process.env.TEST_USER_EMAIL!, process.env.TEST_USER_PASSWORD!, 'Option 2')
     // await page.waitForTimeout(500)
     // await page.screenshot({path: 'screenshots/fomlayoutsPage.png'})
     // const formLayoutPageBuffer = await page.screenshot()
