@@ -25,7 +25,7 @@ test.describe('Form Layouts page', () => {
         const inputValue = await usingTheGridEmailInput.inputValue()
 
         //assertions
-        await expect(usingTheGridEmailInput).toHaveValue('test2@test.com1')
+        await expect(usingTheGridEmailInput).toHaveValue('test2@test.com')
         await expect(usingTheGridEmailInput).toHaveValue(/test.com/)
 
     })
