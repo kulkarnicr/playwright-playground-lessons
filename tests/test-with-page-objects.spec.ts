@@ -14,7 +14,7 @@ test('Navigate to form layouts page', async ({ page }) => {
     await pom.navigateTo.smartTablePage()
 })
 
-test.only('Parametrized page object methods', async({page}) => {
+test('Parametrized page object methods', async({page}) => {
     const pom = new PageManager(page)
     const randomFullName = faker.person.fullName()
     const randomEmail = faker.internet.email({provider: 'test.com'})
