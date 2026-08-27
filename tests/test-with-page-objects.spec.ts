@@ -1,21 +1,14 @@
-import { test } from '@playwright/test'
-import { PageManager } from '../page-objects/page-manager'
+import { test } from '../fixture'
 import {faker} from '@faker-js/faker'
 
-test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-})
-
-test('Navigate to form layouts page', async ({ page }) => {
-    const pom = new PageManager(page)
+test('Navigate to form layouts page', async ({ pom }) => {
     await pom.navigateTo.formLayoutsPage()
     await pom.navigateTo.datePickerPage()
     await pom.navigateTo.toasterPage()
     await pom.navigateTo.smartTablePage()
 })
 
-test('Parametrized page object methods', async({page}) => {
-    const pom = new PageManager(page)
+test('Parametrized page object methods', async({ pom }) => {
     const randomFullName = faker.person.fullName()
     const randomEmail = faker.internet.email({provider: 'test.com'})
 
