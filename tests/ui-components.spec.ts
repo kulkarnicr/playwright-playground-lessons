@@ -12,7 +12,7 @@ test.describe('Form Layouts page', () => {
         await page.getByText('Form Layouts').click()
     })
 
-    test('Input fields', async({page}, testInfo) => {
+    test('Input fields', {tag: ['@smoke', '@fields']}, async({page}, testInfo) => {
         if(testInfo.retry){
             //clean test data
         }
@@ -30,7 +30,7 @@ test.describe('Form Layouts page', () => {
 
     })
 
-    test('radio buttons', async({page}) => {
+    test('radio buttons', {tag: ['@smoke', '@radio']}, async({page}) => {
         const usingTheGridForm = page.locator('nb-card', {hasText: "Using the Grid"})
 
         await usingTheGridForm.getByLabel('Option 1').check({force: true})
