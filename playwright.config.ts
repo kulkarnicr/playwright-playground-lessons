@@ -22,6 +22,12 @@ export default defineConfig({
 
   projects: [
     {
+      name: 'mobile-test',
+      use: { 
+        ...devices['iPhone 17 Pro'],
+       },
+    },
+    {
       name: 'page-object-tests',
       testMatch: '*page-objects.spec.ts'
     },
