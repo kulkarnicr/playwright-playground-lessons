@@ -33,8 +33,9 @@ test.describe('Form Layouts page', () => {
     test('radio buttons', {tag: ['@smoke', '@radio']}, async({page}) => {
         const usingTheGridForm = page.locator('nb-card', {hasText: "Using the Grid"})
 
-        await usingTheGridForm.getByLabel('Option 1').check({force: true})
-        await usingTheGridForm.getByRole('radio', {name: "Option 2"}).check({force: true})
+        await usingTheGridForm.getByLabel('Option 2').check({force: true})
+        await usingTheGridForm.getByRole('radio', {name: "Option 1"}).check({force: true})
+        //await expect(usingTheGridForm).toHaveScreenshot({maxDiffPixels: 100})
 
         const radioStatus = await usingTheGridForm.getByRole('radio', {name: "Option 2"}).isChecked()
         expect(radioStatus).toBeTruthy()
