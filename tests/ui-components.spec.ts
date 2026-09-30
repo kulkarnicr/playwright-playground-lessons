@@ -1,3 +1,4 @@
+//Ganesha
 import { expect, test } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
@@ -12,6 +13,19 @@ test.describe('Form Layouts page', () => {
         await page.getByText('Form Layouts').click()
     })
 
+    /*
+    setter methods:
+        fill() - to fill data in input text field
+        clear() - to clear data in input text field i.e. blank
+        pressSequentially() with delay parameter: mimic realtime writing
+    getter methods:
+        inputValue(): extract text field
+    assertions:
+        toHaveText(): exact match with extract/getter value
+        toHaveText(//): regex match i.e. partial match
+    Note:
+        1. no need to clear() text field explicitly. fill() method overwrites (i.e. clears and writes new data).
+    */
     test('Input fields', {tag: ['@smoke', '@fields']}, async({page}, testInfo) => {
         if(testInfo.retry){
             //clean test data
@@ -30,6 +44,23 @@ test.describe('Form Layouts page', () => {
 
     })
 
+    /*
+    check(): method to select radio button option
+
+    locators:
+        1. getByRole + 'radio'
+        2. getByLabel + label/name of radio-button
+
+    assertions: to verify if radio button is checked or unchecked
+        1. locator assertion - toBeChecked() or not.toBeChecked
+        2. comparison based: 
+            isChecked() - to extract status
+            toBeTruthy() - to compare
+
+    notes:
+        1. <input ...> tag is important which tells what to use for selector of radio buttons.
+        2. {force: true} option can be used if visually_hidden() class is applied to radio button as it hides original radio button.
+    */
     test('radio buttons', {tag: ['@smoke', '@radio']}, async({page}) => {
         const usingTheGridForm = page.locator('nb-card', {hasText: "Using the Grid"})
 
@@ -45,6 +76,16 @@ test.describe('Form Layouts page', () => {
     })
 })
 
+/*
+methods:
+    1. click()
+    2. check({force: true})
+    3. uncheck({force: true})
+notes:
+    1. check()/uncheck() will first find status of checkbox. If it is already in desired state then it will SKIP check/uncheck.
+    2. click() wont find status of checkbox. It will always change state of checkbox i.e from checked to unchecked and vice-versa.
+    
+*/
 test('checkboxes', async({page}) => {
     await page.getByText('Modal & Overlays').click()
     await page.getByText('Toastr').click()
