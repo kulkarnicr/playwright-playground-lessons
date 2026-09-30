@@ -77,6 +77,9 @@ test.describe('Form Layouts page', () => {
 })
 
 /*
+locator:
+    getByRole + 'checkbox'
+    
 methods:
     1. click()
     2. check({force: true})
@@ -99,6 +102,22 @@ test('checkboxes', async({page}) => {
     }
 })
 
+/*Ganesha
+2 types - standard, custom
+
+locator:
+    getByRole + 'combobox'
+
+methods:
+    1. selectOption()
+
+assertions:
+    toHaveValue() - standard
+    toHaveText() - custom
+
+Notes:
+    below example shows how to iterate over list of dropdown options. Please check.
+*/
 test('Lists and dropdowns', async({page}) => {
     await page.getByText('Modal & Overlays').click()
     await page.getByText('Toastr').click()
@@ -126,6 +145,19 @@ test('Lists and dropdowns', async({page}) => {
     }
 })
 
+/*Ganesha
+locator:
+    getByRole + 'tooltip'
+    
+methods:
+    hover()
+    
+assertions:
+    toHaveText()
+    
+notes:
+    you need to freeze DOM (F8) to get info about tooltip.
+*/
 test('tooltips', async ({ page }) => {
     await page.getByText('Modal & Overlays').click()
     await page.getByText('Tooltip').click()
@@ -134,6 +166,16 @@ test('tooltips', async ({ page }) => {
     await expect(page.getByRole('tooltip')).toHaveText('This is a tooltip')
 })
 
+/*Ganesha
+normal dialog - usual html
+custom - tricky, create dialog listener before action - this clicks OK in dialog popup
+
+locators:
+    page.locator('tr', {hasText: '...'})...
+
+assertion:
+    [not.]toBeVisible
+*/
 test('dialog box', async ({ page }) => {
     await page.getByText('Tables & Data').click()
     await page.getByText('Smart Table').click()
@@ -147,6 +189,18 @@ test('dialog box', async ({ page }) => {
     await expect(page.locator('tr', {hasText: 'mdo@gmail.com'})).not.toBeVisible()
 })
 
+/*Ganesha
+
+locators:
+    row - getByRole + 'row'
+    column - getByRole + 'td'
+
+
+notes:
+approach to deal with tables
+    first find a row you wish to edit or target
+    then find a specific column
+*/
 test('web tables', async ({ page }) => {
     await page.getByText('Tables & Data').click()
     await page.getByText('Smart Table').click()
@@ -235,6 +289,14 @@ test('sliders', async ({ page }) => {
     await expect(tempBox).toContainText('30')
 })
 
+/*Ganesha
+
+iframe looks to be html inside html.
+so first get locator for iframe and using this iframeLocator try operations
+i.e. usual page.locator will be replaced by iframeLocator.xyz.
+
+otherwise it tries clicking on page i.e. top level html page and fails.
+*/
 test('iFrames', async({page}) => {
     await page.getByText('Modal & Overlays').click()
     await page.getByText('Dialog').click()
@@ -244,6 +306,15 @@ test('iFrames', async({page}) => {
     await frameLocator.getByRole('button', {name: 'Open Dialog with esc close'}).click()
 })
 
+/*Ganesha
+
+locators:
+    getByText
+
+methods:
+    1> dragTo()
+    2> hover() at source -> mouse.down() -> hover() at dest -> mouse.up()
+*/
 test('Drag & drop', async({page}) => {
     await page.getByText('Extra Components').click()
     await page.getByText('Drag & Drop').click()
